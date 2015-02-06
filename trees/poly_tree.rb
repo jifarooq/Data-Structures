@@ -1,3 +1,5 @@
+require 'awesome_print'
+
 class Node
 	attr_accessor :parent, :children
 	attr_reader :value
@@ -10,6 +12,12 @@ class Node
 
 	def count
 		1 + children.map(&:count).reduce(0, :+)
+	end
+
+	def to_hash
+		{ @value => children.reduce( {} ) { 
+			|result, child| result.merge(child.to_hash)
+		} }
 	end
 end
 
@@ -24,6 +32,11 @@ class PolyTree
 		@root.count
 	end
 
+	def draw
+		tree_hash = @root.to_hash
+		ap tree_hash
+	end
+
 	def add_node(value, parent = @root)
 		child = Node.new(value)
 		parent.children << child
@@ -36,11 +49,20 @@ class PolyTree
 		if node.children.empty?		
 			remove_leaf(node)
 		else
-			# arbitrarily swap values with first child
-			# then call itself on the child
-			node.value, children[0].value = children[0].value, node.value
-			remove_node(children[0])
+			remove_non_leaf(node)
 		end
+	end
+
+	def remove_non_leaf(node)
+		parent = node.parent
+		children = node.children
+
+		node.parent = nil
+		children.each do |child|
+			child.parent = nil
+		end
+
+		#need to reassign parent too!
 	end
 
 	def remove_leaf(node)
@@ -76,33 +98,24 @@ class PolyTree
 
 		nil
 	end
+
 end
 
-# adhoc testing
+# ADHOC TESTING
 tree = PolyTree.new(1)
 node2 = tree.add_node(2)
 node3 = tree.add_node(3)
 
-#left branch
+# LEFT BRANCH
 node4 = tree.add_node(4, node2)
-tree.add_node(5, node2)
-tree.add_node(6, node2)
+2.times { |i| tree.add_node(i + 5, node2) }
 
-puts tree.count
+tree.draw
 tree.remove(node4)
-puts tree.count
+tree.draw
 
-#right branch
+# RIGHT BRANCH
 # tree.add_node(7, node3)
 # node8 = tree.add_node(8, node3)
 
-# tree.add_node(9, node8)
-# tree.add_node(10, node8)
-# tree.add_node(11, node8)
-# tree.add_node(12, node8)
-
-# target_node = tree.bfs(4)
-# puts "tree before is"; p tree; puts
-# tree.remove_node(node2)
-# puts "tree after is #{tree}"
-
+# 4.times { |i| tree.add_node(i + 9, node8) }
