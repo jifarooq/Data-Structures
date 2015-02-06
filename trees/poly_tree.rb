@@ -50,9 +50,13 @@ class PolyTree
 	end
 end
 
+# adhoc testing
+tree = PolyTree.new(1)
+node2 = tree.add_node(2)
+node3 = tree.add_node(3)
 
 #left branch
-tree.add_node(4, node2)
+node4 = tree.add_node(4, node2)
 tree.add_node(5, node2)
 tree.add_node(6, node2)
 
@@ -65,6 +69,7 @@ tree.add_node(10, node8)
 tree.add_node(11, node8)
 tree.add_node(12, node8)
 
-target_node = tree.dfs(2)
+target_node = tree.bfs(4)
+# puts target_node == node4
 # puts target_node.value
-# puts target_node.parent.value #8
+# puts target_node.parent.value #2

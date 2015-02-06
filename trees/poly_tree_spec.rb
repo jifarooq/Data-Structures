@@ -19,16 +19,11 @@ describe Node do
   end
 end
 
-#testing
-# tree = PolyTree.new(1)
-# node2 = tree.add_node(2)
-# node3 = tree.add_node(3)
-
 describe PolyTree do
-	let(:tree) { PolyTree.new(1) }
-	let(:node2) { tree.add_node(2) }
-	let(:node3) { tree.add_node(3) }
-	let(:node4) { tree.add_node(4, node2) }
+	tree = PolyTree.new(1)
+	node2 = tree.add_node(2)
+	node3 = tree.add_node(3)
+	node4 = tree.add_node(4, node2)
 
 	describe "#add_node" do 
 		it "sets the parent to the root when no parent passed" do
@@ -45,5 +40,28 @@ describe PolyTree do
 			expect(node2.children).to include(node4)
 		end
 	end
-end
 
+	describe "#bfs" do
+		it "takes correct path to target" do
+		end
+
+		it "finds the correct value" do
+			found_node = tree.bfs(4)
+			expect(found_node).to eq(node4)
+			expect(found_node.parent).to eq(node2)
+			expect(found_node.children).to eq([])
+		end
+	end
+
+	describe "#dfs" do
+		it "takes correct path to target" do
+		end
+
+		it "finds the correct value" do
+			found_node = tree.dfs(2)
+			expect(found_node).to eq(node2)
+			expect(found_node.parent).to eq(tree.root)
+			expect(found_node.children).to eq([node4])
+		end
+	end
+end
