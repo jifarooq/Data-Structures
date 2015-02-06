@@ -1,3 +1,4 @@
+require 'rspec'
 require_relative "link"
 
 describe Link do
