@@ -16,8 +16,8 @@ class Node
 
 	def to_hash
 		{ @value => children.reduce( {} ) { 
-			|result, child| result.merge(child.to_hash)
-		} }
+			|result, child| result.merge(child.to_hash) }
+		}
 	end
 end
 
@@ -32,7 +32,7 @@ class PolyTree
 		@root.count
 	end
 
-	def draw
+	def pretty_print
 		tree_hash = @root.to_hash
 		ap tree_hash
 	end
@@ -110,12 +110,9 @@ node3 = tree.add_node(3)
 node4 = tree.add_node(4, node2)
 2.times { |i| tree.add_node(i + 5, node2) }
 
-tree.draw
-tree.remove(node4)
-tree.draw
-
 # RIGHT BRANCH
-# tree.add_node(7, node3)
-# node8 = tree.add_node(8, node3)
+tree.add_node(7, node3)
+node8 = tree.add_node(8, node3)
 
-# 4.times { |i| tree.add_node(i + 9, node8) }
+4.times { |i| tree.add_node(i + 9, node8) }
+tree.pretty_print
