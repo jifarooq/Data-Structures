@@ -39,7 +39,10 @@ class PolyTree
 	# can pass in a node or a value
 	def insert(object, parent = @root)
 		child = object.is_a?(Node) ? object : Node.new(object)
-		
+		parent.children << child
+		child.parent = parent
+
+		child
 		if parent.nil?
 			root = child
 		else
@@ -51,6 +54,7 @@ class PolyTree
 	end
 
 	def remove(node)
+		raise "can't uproot right now" if node == @root
 		node.children.empty? ? detach(node) : remove_non_leaf(node)
 	end
 
@@ -62,11 +66,12 @@ class PolyTree
 		node
 	end
 
-	# does not work when try to remove root!
+	# does not work when try to remove root
+	# also this needs to be recursive (very much like heapify)
 	def remove_non_leaf(node)
 		parent, children = node.parent, node.children
 		
-		detach(node) unless node == @root
+		detach(node)
 		node.children = []
 		children.each {|child| child.parent = nil}
 
@@ -104,8 +109,6 @@ class PolyTree
 		nil
 	end
 
-	private
-	attr_writer :root
 end
 
 # ADHOC TESTING
