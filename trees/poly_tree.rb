@@ -33,42 +33,47 @@ class PolyTree
 	end
 
 	def pretty_print
-		tree_hash = @root.to_hash
-		ap tree_hash
+		ap @root.to_hash
 	end
 
-	def add_node(value, parent = @root)
-		child = Node.new(value)
-		parent.children << child
-		child.parent = parent
+	# can pass in a node or a value
+	def insert(object, parent = @root)
+		child = object.is_a?(Node) ? object : Node.new(object)
+		
+		if parent.nil?
+			root = child
+		else
+			parent.children << child
+			child.parent = parent
+		end
+
 		child
 	end
 
 	def remove(node)
-		# puts "node value is #{node.value}"
-		if node.children.empty?		
-			remove_leaf(node)
-		else
-			remove_non_leaf(node)
-		end
+		node.children.empty? ? detach(node) : remove_non_leaf(node)
 	end
 
-	def remove_non_leaf(node)
-		parent = node.parent
-		children = node.children
-
-		node.parent = nil
-		children.each do |child|
-			child.parent = nil
-		end
-
-		#need to reassign parent too!
-	end
-
-	def remove_leaf(node)
+	def detach(node)
 		parent = node.parent
 		parent.children.delete(node)
 		node.parent = nil
+
+		node
+	end
+
+	# does not work when try to remove root!
+	def remove_non_leaf(node)
+		parent, children = node.parent, node.children
+		
+		detach(node) unless node == @root
+		node.children = []
+		children.each {|child| child.parent = nil}
+
+		# REATTACH (using first child as replacement)
+		replacement, other_children = children.first, children[1..-1]
+		insert(replacement, parent)
+		other_children.each { |child| insert(child, replacement) }
 
 		node
 	end
@@ -99,22 +104,26 @@ class PolyTree
 		nil
 	end
 
+	private
+	attr_writer :root
 end
 
 # ADHOC TESTING
 tree = PolyTree.new(1)
-node2 = tree.add_node(2)
-node3 = tree.add_node(3)
+node2 = tree.insert(2)
+node3 = tree.insert(3)
 
 # LEFT BRANCH
-node4 = tree.add_node(4, node2)
-2.times { |i| tree.add_node(i + 5, node2) }
+node4 = tree.insert(4, node2)
+2.times { |i| tree.insert(i + 5, node2) }
 
 # RIGHT BRANCH
-tree.add_node(7, node3)
-node8 = tree.add_node(8, node3)
+tree.insert(7, node3)
+node8 = tree.insert(8, node3)
+4.times { |i| tree.insert(i + 9, node8) }
 
-4.times { |i| tree.add_node(i + 9, node8) }
+tree.pretty_print
+tree.remove(node8)
 tree.pretty_print
 
 # =>
