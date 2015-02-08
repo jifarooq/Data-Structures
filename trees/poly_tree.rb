@@ -73,6 +73,25 @@ class PolyTree
 		node
 	end
 
+	def print_values_breadth
+		nodes = [@root]
+
+		until nodes.empty?
+			node = nodes.shift
+			puts node.value
+			nodes.concat(node.children)
+		end
+	end
+
+	def print_values_depth(node = @root)
+		puts node.value
+
+		node.children.each do |child|
+			return if child.nil?
+			print_values_depth(child)
+		end
+	end
+
 	def bfs(target)
 		nodes = [@root]
 
@@ -118,8 +137,9 @@ nodes = []
 4.times { |i| nodes << tree.insert(i + 9, node8) }
 
 tree.pretty_print
-tree.remove(node3)
-tree.pretty_print
+tree.print_values_depth
+# tree.remove(node3)
+# tree.pretty_print
 
 # =>
 # {
