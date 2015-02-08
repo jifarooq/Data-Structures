@@ -43,14 +43,6 @@ class PolyTree
 		child.parent = parent
 
 		child
-		if parent.nil?
-			root = child
-		else
-			parent.children << child
-			child.parent = parent
-		end
-
-		child
 	end
 
 	def remove(node)
@@ -66,14 +58,12 @@ class PolyTree
 		node
 	end
 
-	# does not work when try to remove root
-	# also this needs to be recursive (very much like heapify)
 	def remove_non_leaf(node)
 		parent, children = node.parent, node.children
 		
 		detach(node)
 		node.children = []
-		children.each {|child| child.parent = nil}
+		children.each { |child| child.parent = nil }
 
 		# REATTACH (using first child as replacement)
 		replacement, other_children = children.first, children[1..-1]
@@ -123,10 +113,12 @@ node4 = tree.insert(4, node2)
 # RIGHT BRANCH
 tree.insert(7, node3)
 node8 = tree.insert(8, node3)
-4.times { |i| tree.insert(i + 9, node8) }
+
+nodes = []
+4.times { |i| nodes << tree.insert(i + 9, node8) }
 
 tree.pretty_print
-tree.remove(node8)
+tree.remove(node3)
 tree.pretty_print
 
 # =>
