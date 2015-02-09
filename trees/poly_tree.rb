@@ -73,7 +73,7 @@ class PolyTree
 		node
 	end
 
-	def print_values_breadth
+	def breadth_print
 		nodes = [@root]
 
 		until nodes.empty?
@@ -83,7 +83,7 @@ class PolyTree
 		end
 	end
 
-	def print_values_depth(node = @root)
+	def depth_print(node = @root)
 		puts node.value
 
 		node.children.each do |child|
