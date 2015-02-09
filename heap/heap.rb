@@ -48,40 +48,6 @@ class MinHeap
 		heapify_down(swap_idx)
 	end
 
-	def to_hash_bad(value = @store.first)
-		parent_idx = @store.find_index(value)
-		x, y = child_indices(parent_idx)
-		puts "parent idx is #{parent_idx}"
-		puts "child_indices are #{[x, y]}"
-		children = (x < @store.size) ? [@store[x], @store[y]] : []
-		# children = @store[x], @store[y]
-
-		{ value => children.reduce( {} ) {
-			|result, child| result.merge( to_hash(child) )}
-		} unless children.nil? || children.empty?
-	end
-
-	def to_hash
-		indices = [0]
-		result = {}
-
-		until indices.empty?
-			index, temp = indices.shift, {}
-			child_indices = child_indices(index)
-
-			puts "parent index is #{index}"
-			puts "parent value is #{@store[index]}"
-			puts "child_indices are #{child_indices}"
-
-			children = child_indices.map{ |idx| @store[idx] }
-			temp[ @store[index] ] = children
-			result = result.merge(temp)
-			indices.concat(children)
-		end
-
-		result
-	end
-
 	def pretty_print
 		ap to_hash
 	end
