@@ -54,11 +54,11 @@ class MinHeap
 end
 
 #ad hoc testing
-a = [16, 14, 10, 8, 7, 9, 3, 2, 4, 1]
+a = [16, 14, 10, 8, 7, 9, 3, 2, 4, 1].reverse!
 heap = MinHeap.new
 
 a.each do |el|
 	heap.push(el)
 end
 
-puts heap.to_s
+puts heap
