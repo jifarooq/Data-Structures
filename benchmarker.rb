@@ -1,6 +1,6 @@
 require 'Benchmark'
 require_relative '../../../../Documents/coding_data/bury_my_ruby/app_acad/AA_final_coding_challenge'
-require_relative '../../../trash/trash2'
+require_relative 'sorts'
 # stock_generator takes (start_price, number_of_days)
 
 class MethodBenchmarker
@@ -54,8 +54,11 @@ class FunctionBenchmarker
 end
 
 # arr = stock_generator(500, 10000)
-arr = []; 500.times { arr << rand(100000) }
-methods = [:bubble_sort, :merge_sort, :quick_sort, :selection_sort]
+arr = []; 5000.times { arr << rand(10000) }
+methods = [:bubble_sort, :merge_sort, :quick_sort]#, :selection_sort]
 bm = FunctionBenchmarker.new(arr, methods)
 bm.print_report
+
+bm2 = MethodBenchmarker.new(arr, [:sort])
+bm2.print_report
 

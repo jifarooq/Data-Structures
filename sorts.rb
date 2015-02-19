@@ -99,7 +99,20 @@ def selection_sort(arr)
 	sorted
 end
 
+def naive_sort(arr)
+	my_len = arr.size - 2
+
+	my_len.times do
+		(0..my_len).each do |i|			
+			arr[i], arr[i+1] = arr[i+1], arr[i] if arr[i] > arr[i+1]
+		end
+	end
+
+	arr
+end
+
+
 a = []
-7.times { a << rand(25) }
-# print selection_sort(a); puts
+1000.times { a << rand(2500) }
+# print naive_sort(a) == a.sort; puts
 
