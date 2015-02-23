@@ -17,7 +17,7 @@ a, b, c, d, e = nodes
 (0...nodes.size).each do |i|
 	(i + 1...nodes.size).each do |j|
 		x, y = nodes[i], nodes[j]
-		# g.add_edges( x, y )
+		g.add_edges( x, y )
 		g.add_edges( y, x )
 	end
 end
@@ -28,4 +28,4 @@ end
 # g.add_edges( d, e )
 
 # Generate output image
-g.output( :png => "my_graph.png" )
+g.output( :png => "my_crazy_dense_graph.png" )
