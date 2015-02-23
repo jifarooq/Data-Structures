@@ -33,7 +33,7 @@ class Edge
 	end
 
 	def to_s
-		[from_node, to_node].map(&:to_s)
+		[from_node, to_node].map()
 	end
 end
 
