@@ -29,10 +29,10 @@ end
 
 #TESTING
 nodes = []
-nodes << (v1 = Node.new("Wash Markov"))
-nodes << (v2 = Node.new("Feed Markov"))
-nodes << (v3 = Node.new("Dry Markov"))
-nodes << (v4 = Node.new("Brush Markov"))
+nodes << (v1 = Node.new("Wash Buckley"))
+nodes << (v2 = Node.new("Feed Buckley"))
+nodes << (v3 = Node.new("Dry Buckley"))
+nodes << (v4 = Node.new("Brush Buckley"))
 Edge.new(v1, v2)
 Edge.new(v1, v3)
 Edge.new(v2, v4)
