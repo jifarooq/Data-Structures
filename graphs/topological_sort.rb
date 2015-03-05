@@ -43,4 +43,4 @@ vals = nodes.map{ |v| v.to_s }
 sorted_nodes = topological_sort(nodes.shuffle)
 sorted_vals = sorted_nodes.map{ |v| v.to_s }
 
-puts "sorted nodes are #{sorted_vals}"
+# puts "sorted nodes are #{sorted_vals}"

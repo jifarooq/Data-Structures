@@ -2,7 +2,7 @@
 require_relative '../puzzles/tokenize_year.rb'
 
 class LRUCache
-	attr_reader :hits, :misses
+	attr_reader :hits, :misses, :store, :max_size
 
 	def initialize(max, &proc)
 		@store = {}
@@ -14,26 +14,26 @@ class LRUCache
 
 	def calculate(input)
 		# check if input already cached
-		if @store[input]
+		if store[input]
 			@hits += 1
-			@store[input][1] = Time.now
-			return @store[input][0]
+			store[input][1] = Time.now
+			return store[input][0]
 		end
 
 		# if not in cache, call proc on input and add it to cache
 		# eject from the cache if needed
 		# return output
 		@misses += 1
-		@store[input] = [@proc.call(input), Time.now]
-		eject! if @store.size > @max_size
+		store[input] = [@proc.call(input), Time.now]
+		eject! if store.size > max_size
 
-		@store[input].first
+		store[input].first
 	end
 
 
 	def eject!
-		key, val = @store.min_by{ |k, (v, time)| time }
-		@store.delete(key)
+		key, val = store.min_by{ |k, (v, time)| time }
+		store.delete(key)
 	end
 end
 
