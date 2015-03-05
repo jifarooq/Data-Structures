@@ -8,7 +8,7 @@ class LinkedList
 		self.first = Link.new(nil)
 		self.last = Link.new(nil)
 
-		self.first.insert_right(self.last)
+		first.insert_right(last)
 	end
 
 	def [](idx)

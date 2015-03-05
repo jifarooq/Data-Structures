@@ -100,7 +100,7 @@ class PolyTree
 			return node if node.value == target
 
 			#children is an array, so need to concat
-			nodes.concat(node.children) 
+			nodes.concat(node.children)
 		end
 
 		nil
