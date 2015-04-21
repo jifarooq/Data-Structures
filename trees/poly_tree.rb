@@ -88,7 +88,7 @@ class PolyTree
 
 		node.children.each do |child|
 			return if child.nil?
-			print_values_depth(child)
+			depth_print(child)
 		end
 	end
 

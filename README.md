@@ -1,3 +1,3 @@
-Data structures implemented in Ruby.  Still to come include binary search trees and graphs.
+Data structures implemented in Ruby.
 
-Also included is a benchmarker class good for testing time complexity in practice.  For instance, test a method written in quadtratic time versus one written in linear time and compare running times.
+Also included is a benchmarker class for testing time complexity in practice.  For instance, execute a method written in quadratic time versus one written in linear time and compare running times.
