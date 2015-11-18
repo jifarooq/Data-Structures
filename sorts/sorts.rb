@@ -2,7 +2,7 @@ def quick_sort_in_place(arr, start = 0, len = arr.size)
 	return arr if len < 2
 
 	pivot_idx = partition(arr, start, len)
-	left_len = pivot_idx - start
+	left_len  = pivot_idx - start
 	right_len = len - (left_len + 1)
 
 	quick_sort(arr, start, left_len)
@@ -13,7 +13,7 @@ end
 
 def partition(arr, start, len)
 	pivot_idx = start
-	pivot = arr[start]
+	pivot     = arr[start]
 
 	(start + 1...start + len).each do |i|
 		value = arr[i]
